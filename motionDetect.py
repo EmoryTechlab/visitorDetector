@@ -53,7 +53,7 @@ for f in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True
 	# frame and running average
 	cv2.accumulateWeighted(gray, avg, 0.5)
 	frameDelta = cv2.absdiff(gray, cv2.convertScaleAbs(avg))
-		# threshold the delta image, dilate the thresholded image to fill
+	# threshold the delta image, dilate the thresholded image to fill
 	# in holes, then find contours on thresholded image
 	thresh = cv2.threshold(frameDelta, 5, 255, 
 		cv2.THRESH_BINARY)[1] #second argument is delta thresh, change for false positives.
@@ -64,16 +64,13 @@ for f in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True
 	# loop over the contours
 	for c in cnts:
 		# if the contour is too small, ignore it
-		if cv2.contourArea(c) < 5000: #this is the minimum area of perturbation
+		if cv2.contourArea(c) < 5000: #this is the minimum area of perturbation. Modify this in case of false positives, negatives.
 			continue
  
-		# compute the bounding box for the contour, draw it on the frame,
-		# and update the text
-		(x, y, w, h) = cv2.boundingRect(c)
-		cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+		# update the text
 		text = "Occupied"
 
-			# check to see if the room is occupied
+		# check to see if the room is occupied
 	if text == "Occupied":
 		if alertcount <20: #increment the alertcount
 			alertcount = alertcount +1
@@ -84,7 +81,6 @@ for f in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True
 	# otherwise, the room is not occupied
 	elif alertcount > 0:
 		alertcount -= 1
-	#	print alertcount
 	
 	# clear the stream in preparation for the next frame
 	rawCapture.truncate(0)
