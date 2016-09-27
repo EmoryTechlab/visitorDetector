@@ -1,5 +1,5 @@
 # visitorDetector
-This is a set of scripts and protocols to alert everyone in the Emory Tech Lab when a visitor enters the space.
+This is a set of scripts and protocols to alert everyone in the Emory Tech Lab when a visitor enters the space. It is designed to run off a Raspberry Pi, currently running on Raspberry Pi 2 B
 
 
 
