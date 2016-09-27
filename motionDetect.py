@@ -1,4 +1,4 @@
-# import the necessary packages
+# import packages
 from tempimage import TempImage
 from picamera.array import PiRGBArray
 from picamera import PiCamera
@@ -10,6 +10,10 @@ import cv2
 import visualAlert 
 import TCP
 
+
+#variables
+ipAddress = "170.140.153.111"
+
 # filter warnings
 warnings.filterwarnings("ignore")
 
@@ -19,9 +23,7 @@ camera.resolution = tuple([640, 480])
 camera.framerate = 5
 rawCapture = PiRGBArray(camera, size=tuple([640, 480]))
  
-# allow the camera to warmup, then initialize the average frame, last
-# uploaded timestamp, and frame motion counter
-#print "[INFO] warming up..."
+# allow the camera to warmup, then initialize the average frame,and frame motion counter
 time.sleep(2.5)
 avg = None
 alertcount = 0
@@ -30,11 +32,10 @@ alertcount = 0
 # capture frames from the camera
 for f in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
 	# grab the raw NumPy array representing the image and initialize
-	# the timestamp and occupied/unoccupied text
+	# the occupied/unoccupied text
 	frame = f.array
-	#timestamp = datetime.datetime.now()
 	text = "Unoccupied"
-	time.sleep(1) #have the script pause between loops
+	time.sleep(0.5) #have the script pause between loops
 
 	# resize the frame, convert it to grayscale, and blur it
 	frame = imutils.resize(frame, width=500)
@@ -74,13 +75,10 @@ for f in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True
 
 			# check to see if the room is occupied
 	if text == "Occupied":
-		# check to see if enough time has passed between uploads
-	#	print timestamp
-		if alertcount <20:
+		if alertcount <20: #increment the alertcount
 			alertcount = alertcount +1
-	#	print alertcount
-		if alertcount == 3:
-			TCP.send( b"O1", "170.140.153.111")
+		if alertcount == 3: #if there have been 3 alertcounts, make alert.
+			TCP.send( b"O1", ipAddress)
 			visualAlert.blink()
 
 	# otherwise, the room is not occupied
