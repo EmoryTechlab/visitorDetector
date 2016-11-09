@@ -2,22 +2,23 @@ import RPi.GPIO as GPIO
 import time
 
 GPIO.setwarnings(False)
-GPIO.setmode(GPIO.BOARD)
-GPIO.setup(3, GPIO.OUT) #make pin 3 output
-
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(4, GPIO.OUT) #make pin 3 output
+onTime = 2
+offTime = 1
 
 
 def blink():
-	GPIO.output(3, 1) #output high on 3
-	time.sleep(0.7)
-	GPIO.output(3, 0) #output high on 3
-	time.sleep(0.3)
-	GPIO.output(3, 1) #output high on 3
-	time.sleep(0.7)
-	GPIO.output(3, 0) #output high on 3
-	time.sleep(0.3)
-        GPIO.output(3, 1) #output high on 3
-	time.sleep(0.7)
-	GPIO.output(3, 0) #output high on 3
-	time.sleep(0.3)
+	GPIO.output(4, 1) #output high on 3
+	time.sleep(onTime)
+	GPIO.output(4, 0) #output high on 3
+	time.sleep(offTime)
+	GPIO.output(4, 1) #output high on 3
+	time.sleep(onTime)
+	GPIO.output(4, 0) #output high on 3
+	time.sleep(offTime)
+        GPIO.output(4, 1) #output high on 3
+	time.sleep(onTime)
+	GPIO.output(4, 0) #output high on 3
+	time.sleep(offTime)
 

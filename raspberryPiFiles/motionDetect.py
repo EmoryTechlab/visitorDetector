@@ -1,3 +1,4 @@
+#!/usr/bin/python
 # import packages
 from tempimage import TempImage
 from picamera.array import PiRGBArray
@@ -35,7 +36,7 @@ for f in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True
 	# the occupied/unoccupied text
 	frame = f.array
 	text = "Unoccupied"
-	time.sleep(0.5) #have the script pause between loops
+	time.sleep(0.1) #have the script pause between loops
 
 	# resize the frame, convert it to grayscale, and blur it
 	frame = imutils.resize(frame, width=500)
@@ -72,9 +73,9 @@ for f in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True
 
 		# check to see if the room is occupied
 	if text == "Occupied":
-		if alertcount <20: #increment the alertcount
-			alertcount = alertcount +1
-		if alertcount == 3: #if there have been 3 alertcounts, make alert.
+		if alertcount <40: #increment the alertcount
+			alertcount = alertcount +2
+		if alertcount == 6: #if there have been 3 alertcounts, make alert.
 			TCP.send( b"O1", ipAddress)
 			visualAlert.blink()
 

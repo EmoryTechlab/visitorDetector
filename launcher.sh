@@ -1,4 +1,4 @@
 #!bin/sh
 #launcher.sh
 
-python raspberryPiFiles/motionDetect.py
+python /home/pi/visitorDetector/raspberryPiFiles/motionDetect.py
