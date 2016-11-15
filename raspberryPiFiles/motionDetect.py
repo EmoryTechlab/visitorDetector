@@ -75,7 +75,7 @@ for f in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True
 	if text == "Occupied":
 		if alertcount <40: #increment the alertcount
 			alertcount = alertcount +2
-		if alertcount == 6: #if there have been 3 alertcounts, make alert.
+		if alertcount == 4: #if there have been 2 alertcounts, make alert.
 			TCP.send( b"O1", ipAddress)
 			visualAlert.blink()
 
